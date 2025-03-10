@@ -9,7 +9,7 @@ module.exports = {
   // it hashes the password and creates a new Auth containing the values
 
   register: (req, res) => {
-    console.log("Req HIT!", req);
+    console.log("Req HIT!", req.body);
 
     Auth.findOne({ username: req.body.username })
       .then((found) => {
@@ -55,8 +55,8 @@ module.exports = {
           }
         );
 
-        console
-          .log("Token", token, {
+        res
+          .cookie("Token", token, {
             httpOnly: true,
             magAge: 3600000,
           })
@@ -67,4 +67,7 @@ module.exports = {
       }
     });
   },
+  authCheck: (req, res) => {
+    console.log("AUTH CHECK", req.user)
+  }
 };

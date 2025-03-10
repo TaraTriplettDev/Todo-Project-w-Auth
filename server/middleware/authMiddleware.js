@@ -14,7 +14,7 @@ const Auth = require("../models/authModel");
 // }
 
 
-const authCheck = (req, res) => {
+const authCheck = (req, res, next) => {
   console.log("Auth Check", req.headers.cookie);
 
   if (!req.headers.cookie) {
@@ -24,7 +24,7 @@ const authCheck = (req, res) => {
   } else {
     console.log("Cookie Found!", req.headers.cookie.split("="));
 
-    let split = req.headers.cookie.split("");
+    let split = req.headers.cookie.split("=");
 
     console.log("Split", split[1]);
 
@@ -34,13 +34,17 @@ const authCheck = (req, res) => {
         res.json({ msg: "JWT Error" });
       }
       console.log("Payload", payload);
-      Auth.findById(payload._id);
-      Auth.findOne({ username: payload.username })
+      Auth.findById(payload._id)
+      // Auth.findOne({ username: payload.username })
         .then((found) => {
           console.log("found", found);
           res.json({ msg: "valid token", found });
+          req.user = payload.username 
+          next()
         })
         .catch((err) => console.log("err", err));
     });
   }
 }
+
+module.exports = authCheck

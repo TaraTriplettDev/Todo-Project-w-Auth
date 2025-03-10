@@ -3,9 +3,9 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 // Setting routes for the controller
 
-module.export = (app) => {
+module.exports = (app) => {
   app.post("/api/register", Controller.register);
   app.post("/api/login", Controller.login);
 
-  app.get("/authCheck", authMiddleware);
-}
+  app.get("/authCheck", authMiddleware, Controller.authCheck);
+};

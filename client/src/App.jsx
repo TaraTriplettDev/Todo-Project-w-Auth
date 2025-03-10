@@ -69,11 +69,11 @@ function App() {
 
   // Creates a json file containing the method, url and data from handleRegister then sends it to the server through axios
 
-  const handleRegisterSubmit = (register) => {
+  const handleRegisterSubmit = () => {
     console.log("reg", register);
     axios({
       method: "post",
-      url: "http://localhost:3000/api/register",
+      url: "http://127.0.0.1:3000/api/register",
       data: register,
     })
       .then((res) => console.log("res", res.data))
