@@ -32,7 +32,7 @@ function App() {
     });
   };
 
-  // creates a json file including the method, the route, the value of login assigned by handleLogin, and the state of its credentials, 
+  // creates a json file including the method, the route, the value of login assigned by handleLogin, and the state of its credentials,
   // then sends it to the server via axios
 
   // If the message "Good Login" is received from the server, the user is taken to the Protected Route

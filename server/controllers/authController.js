@@ -68,6 +68,6 @@ module.exports = {
     });
   },
   authCheck: (req, res) => {
-    console.log("AUTH CHECK", req.user)
-  }
+    console.log("AUTH CHECK", req.user);
+  },
 };

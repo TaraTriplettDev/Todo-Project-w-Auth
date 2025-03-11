@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 import axios from "axios";
-// import ToDo from "./Components/ToDo.jsx";
+import ToDo from "./ToDo.jsx";
 
 const ProtectedRoute = () => {
   // assigns the use of the useNavigate function to a var called "nav"
@@ -29,8 +29,8 @@ const ProtectedRoute = () => {
   return (
     <>
       {console.log("Protected Route HIT!")}
-      {/* <ToDo /> */}
+      <ToDo />
     </>
   );
 };
-export default ProtectedRoute
+export default ProtectedRoute;
