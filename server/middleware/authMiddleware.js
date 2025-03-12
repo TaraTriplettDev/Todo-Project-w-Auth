@@ -34,17 +34,17 @@ const authCheck = (req, res, next) => {
         res.json({ msg: "JWT Error" });
       }
       console.log("Payload", payload);
-      Auth.findById(payload._id)
-      // Auth.findOne({ username: payload.username })
-        .then((found) => {
-          console.log("found", found);
-          res.json({ msg: "valid token", found });
+      // Auth.findById(payload._id)
+      // // Auth.findOne({ username: payload.username })
+      //   .then((found) => {
+      //     console.log("found", found);
+      //     res.json({ msg: "valid token", found });
           req.user = payload.username 
           next()
         })
-        .catch((err) => console.log("err", err));
-    });
+        // .catch((err) => console.log("err", err));
+    };
   }
-}
+
 
 module.exports = authCheck

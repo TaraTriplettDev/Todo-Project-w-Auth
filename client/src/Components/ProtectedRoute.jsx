@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 import axios from "axios";
-import ToDo from "./ToDo.jsx";
+import ToDo from "../ToDo.jsx";
 
 const ProtectedRoute = () => {
   // assigns the use of the useNavigate function to a var called "nav"
@@ -12,7 +12,7 @@ const ProtectedRoute = () => {
     axios({
       method: "get",
       withCredentials: true,
-      url: "http://localhost:3000/authCheck",
+      url: "http://localhost:3001/authCheck",
     })
       .then((res) => {
         console.warn("Protected Route auth res", res);

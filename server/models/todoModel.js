@@ -4,10 +4,9 @@ const Schema = mongoose.Schema;
 // Schema for creating new ToDo objects
 
 const ToDoSchema = new Schema({
-  newToDo: {
+  todo: {
     type: String,
     required: true,
-    unique: true,
   },
 });
 

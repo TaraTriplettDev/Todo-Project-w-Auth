@@ -17,6 +17,7 @@ module.exports = {
 
   // asynchronously awaits new ToDos then logs them
   createTodo: async (req, res, next) => {
+    console.log("createTodo HIT!", req.body);
     try {
       const newTodo = await ToDo.create(req.body);
       res.status(201).json(newTodo);

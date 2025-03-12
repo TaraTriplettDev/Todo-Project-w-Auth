@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const authController = require("../controllers/authController");
 const authMiddleware = require("../middleware/authMiddleware");
+const ToDo = require("../models/todoModel");
 
 // Setting routes for the controller
 
@@ -48,23 +49,30 @@ module.exports = (app) => {
   // accesses a ToDo object by its id and submits changes to its contents set on the ToDo app
   app.put("/edit/:id", (req, res) => {
     console.log("Edit HIT!", req.params.id, req.body);
-    ToDo.findById(req.params.id).then((found) => {
+    ToDo.findById(req.params.id)
+    .then((found) => {
       console.log("found", found);
       found.todo = req.body.todo;
       found.save();
-    });
+      
+    })
+    .then((updated) => {
+      console.log("updated", updated)
+      res.json(updated)
+    }
+  )
   });
 
-  const PORT = 3000;
+  // const PORT = 3000;
 
-  app.listen(PORT, () => {
-    mongoose
-      .connect(process.env.MONGO_URI || "mongodb://localhost")
-      .then(() => {
-        console.log("Database Connected");
-      })
-      .catch((err) => console.log(err));
+  // app.listen(PORT, () => {
+  //   mongoose
+  //     .connect(process.env.MONGO_URI || "mongodb://localhost")
+  //     .then(() => {
+  //       console.log("Database Connected");
+  //     })
+  //     .catch((err) => console.log(err));
 
-    console.log(`Server connected at Port ${PORT}`);
-  });
+  //   console.log(`Server connected at Port ${PORT}`);
+  // });
 };

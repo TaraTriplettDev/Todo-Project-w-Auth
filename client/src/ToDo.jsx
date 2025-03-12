@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import axios from "axios";
 
 function ToDo() {
@@ -29,7 +28,7 @@ function ToDo() {
     console.warn("useEffect HIT!(x2)");
     axios({
       method: "get",
-      url: "http://localhost:3000/gettodos",
+      url: "http://localhost:3001/gettodos",
     })
       .then((res) => {
         console.log("res", res);
@@ -41,7 +40,7 @@ function ToDo() {
 
   // assigns the value of the user input to a ToDo, which is added to the list of previous ToDos
 
-  const handleNewTodo = (e) => {
+  const handleNewToDo = (e) => {
     console.log("handleNewTodo Hit", e);
     console.log("handleNewTodo Hit", e.target);
     console.log("handleNewToDo Hit", e.target.value);
@@ -59,11 +58,11 @@ function ToDo() {
 
     axios({
       method: "post",
-      url: "http://localhost:3000/create",
+      url: "http://localhost:3001/create",
       data: newToDo,
     })
       .then((res) => {
-        console.log("res", res);
+        console.log("handle submit RES", res);
 
         // setNewToDo({ todo: "" })
         setFlag(!flag);
@@ -77,7 +76,7 @@ function ToDo() {
     console.log("Delete Hit e.target.e", e.target.id);
     axios({
       method: "delete",
-      url: `http://localhost:3000/delete/${e.target.id}`,
+      url: `http://localhost:3001/delete/${e.target.id}`,
     })
       .then((res) => {
         console.log("res", res);
@@ -106,13 +105,14 @@ function ToDo() {
     console.log("handleEdit Hit", e.target.id);
     axios({
       method: "put",
-      url: `http://localhost:3000/edit/${e.target.id}`,
+      url: `http://localhost:3001/edit/${e.target.id}`,
       data: edit,
     })
       .then((res) => {
         console.log("Edit Successful", res);
       })
       .catch((err) => console.log(err));
+      setRender(!render);
   };
 
   return (
@@ -121,7 +121,7 @@ function ToDo() {
       {/* {console.log("flag", flag)} */}
       {/* {console.log("edit", edit)} */}
       {console.warn("render", render)}
-      {/* {console.log("newToDo", newToDo)} */}
+      {console.log("newToDo", newToDo)}
 
       {/* Takes the value of the user input and passes what is typed into the handleNewToDo function */}
 

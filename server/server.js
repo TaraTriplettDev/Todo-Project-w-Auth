@@ -6,7 +6,6 @@ const Router = require("./routes/routes");
 
 app.use(express.json());
 require("dotenv").config();
-
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -18,10 +17,11 @@ Router(app);
 
 // assigning the PORT # to a variable
 
-const PORT = 3000;
+const PORT = 3001;
 
 // connecting the server to the database
 
+console.log("a bunch of random characters", process.env.MONGO_URI)
 app.listen(PORT, () => {
   mongoose.connect(process.env.MONGO_URI).then(() => {
     console.log("Connected to Database");

@@ -41,7 +41,7 @@ function App() {
     console.log(login);
     axios({
       method: "post",
-      url: "http://localhost:3000/api/login",
+      url: "http://localhost:3001/api/login",
       data: login,
       withCredentials: true,
     })
@@ -73,7 +73,7 @@ function App() {
     console.log("reg", register);
     axios({
       method: "post",
-      url: "http://127.0.0.1:3000/api/register",
+      url: "http://127.0.0.1:3001/api/register",
       data: register,
     })
       .then((res) => console.log("res", res.data))
