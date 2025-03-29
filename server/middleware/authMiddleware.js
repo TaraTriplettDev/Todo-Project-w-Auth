@@ -39,7 +39,7 @@ const authCheck = (req, res, next) => {
       //   .then((found) => {
       //     console.log("found", found);
       //     res.json({ msg: "valid token", found });
-          req.user = payload.username 
+          req.user = payload
           next()
         })
         // .catch((err) => console.log("err", err));

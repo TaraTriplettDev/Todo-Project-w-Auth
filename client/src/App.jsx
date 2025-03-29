@@ -49,7 +49,9 @@ function App() {
         console.log("res", res.data);
 
         if (res.data.msg === "Good Login") {
-          nav("/admin/");
+          nav("/admin/", {
+            state: res.data
+          });
         } else {
           alert("Bad Login");
         }

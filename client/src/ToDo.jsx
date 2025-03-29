@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 function ToDo() {
+  const { state } = useLocation();
   // Setting up the data, flag, edit, render, and todo variables to rely on useState for adjusting their values, also setting their default values
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [flag, setFlag] = useState(false);
   const [edit, setEdit] = useState({
     todo: "",
@@ -28,11 +30,14 @@ function ToDo() {
     console.warn("useEffect HIT!(x2)");
     axios({
       method: "get",
-      url: "http://localhost:3001/gettodos",
+      url: `http://localhost:3001/gettodos/${state.found._id}`,
     })
       .then((res) => {
         console.log("res", res);
         // console.log("sorted", sorted)
+
+        
+
         setData(res.data);
       })
       .catch((err) => console.log("err", err));
@@ -48,6 +53,7 @@ function ToDo() {
     setNewToDo((prev) => ({
       ...prev,
       todo: e.target.value,
+      user: state.found._id
     }));
   };
 
@@ -60,6 +66,7 @@ function ToDo() {
       method: "post",
       url: "http://localhost:3001/create",
       data: newToDo,
+      withCredentials: true
     })
       .then((res) => {
         console.log("handle submit RES", res);
@@ -77,6 +84,7 @@ function ToDo() {
     axios({
       method: "delete",
       url: `http://localhost:3001/delete/${e.target.id}`,
+      withCredentials: true
     })
       .then((res) => {
         console.log("res", res);
@@ -107,9 +115,18 @@ function ToDo() {
       method: "put",
       url: `http://localhost:3001/edit/${e.target.id}`,
       data: edit,
+      withCredentials: true
     })
       .then((res) => {
         console.log("Edit Successful", res);
+        setData((prev) => {
+          return prev.map((item) => {
+            if (item._id == res.data._id) {
+              item.todo = res.data.todo
+            }
+            return item 
+      })
+    })
       })
       .catch((err) => console.log(err));
       setRender(!render);
@@ -122,6 +139,7 @@ function ToDo() {
       {/* {console.log("edit", edit)} */}
       {console.warn("render", render)}
       {console.log("newToDo", newToDo)}
+      {console.log("state", state)}
 
       {/* Takes the value of the user input and passes what is typed into the handleNewToDo function */}
 
@@ -133,9 +151,11 @@ function ToDo() {
 
       {/* Creates and organizes a ToDo List */}
 
-      {data &&
+      
+
+      {data.length &&
         data
-          .sort((a, b) => b.created - a.created)
+          // .sort((a, b) => b.created - a.created)
           .map((item) => {
             return (
               <div key={item._id} style={{ marginBottom: "20px" }}>

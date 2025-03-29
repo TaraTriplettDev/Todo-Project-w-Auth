@@ -14,9 +14,9 @@ module.exports = (app) => {
   // Todo
 
   // returns ToDo objects to the ToDo app in json files
-  app.get("/gettodos", (req, res) => {
-    console.log("GetToDos HIT!");
-    ToDo.find()
+  app.get("/gettodos/:id", (req, res) => {
+    console.log("GetToDos HIT!", req.params.id);
+    ToDo.find({user: req.params.id})
       .then((found) => {
         console.log("found", found);
         res.json(found);
@@ -36,7 +36,7 @@ module.exports = (app) => {
   });
 
   // accesses a ToDo object by its id and deletes it
-  app.delete("/delete/:id", (req, res) => {
+  app.delete("/delete/:id", authMiddleware, (req, res) => {
     console.log("Delete HIT", req.params);
     ToDo.findByIdAndDelete(req.params.id)
       .then((deleted) => {
@@ -47,20 +47,19 @@ module.exports = (app) => {
   });
 
   // accesses a ToDo object by its id and submits changes to its contents set on the ToDo app
-  app.put("/edit/:id", (req, res) => {
+  app.put("/edit/:id", authMiddleware, (req, res) => {
     console.log("Edit HIT!", req.params.id, req.body);
     ToDo.findById(req.params.id)
     .then((found) => {
       console.log("found", found);
       found.todo = req.body.todo;
       found.save();
-      
+      res.json(found);
     })
     .then((updated) => {
       console.log("updated", updated)
       res.json(updated)
-    }
-  )
+    })
   });
 
   // const PORT = 3000;

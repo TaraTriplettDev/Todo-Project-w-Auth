@@ -7,9 +7,11 @@ const ToDo = require("../models/todoModel");
 module.exports = {
   // asynchronously searches for ToDo objects in the database and returns a response json containing the ToDo List
   getTodos: async (req, res, next) => {
+    console.log("Get ToDos HIT!");
     try {
-      const todos = await ToDo.find({});
-      res.json(users);
+      const todos = await ToDo.find({user: req.params.id});
+      console.log("Todos: ", todos);
+      res.json(todos);
     } catch (error) {
       next(error);
     }

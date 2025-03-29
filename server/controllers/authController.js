@@ -54,7 +54,7 @@ module.exports = {
             expiresIn: "1h",
           }
         );
-
+        console.log("Token: ", token)
         res
           .cookie("Token", token, {
             httpOnly: true,
