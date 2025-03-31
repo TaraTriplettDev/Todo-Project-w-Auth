@@ -132,6 +132,10 @@ function ToDo() {
       setRender(!render);
   };
 
+  const handleCancel = () => {
+    setRender(!render);
+  };
+
   return (
     <div>
       {/* {console.log("data", data)} */}
@@ -175,20 +179,33 @@ function ToDo() {
                       >
                         Submit
                       </button>
+
+                      <button 
+                        id={item._id} 
+                        onClick={(e) => handleCancel()}
+                      >
+                        Cancel
+                      </button>
                     </div>
                   ) : (
                     <p>{item.todo}</p>
                   )}
 
                   {/* Provides an interface to access the handleDelete and handleEdit functions on each ToDo Item */}
-
-                  <button id={item._id} onClick={(e) => handleDelete(e)}>
+                {!render ? (
+                  <div>
+                    <button id={item._id} onClick={(e) => handleDelete(e)}>
                     Delete
-                  </button>
+                    </button>
 
-                  <button id={item._id} onClick={(e) => handleEdit(e)}>
+                    <button id={item._id} onClick={(e) => handleEdit(e)}>
                     Edit
-                  </button>
+                    </button>
+                  </div>
+                ) : (
+                  <p></p>
+                )}
+                  
                 </div>
               </div>
             );
